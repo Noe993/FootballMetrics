@@ -1,103 +1,194 @@
-import Image from "next/image";
+import Navigation from './components/Navigation';
+import MetricCard from './components/MetricCard';
+import PlayerCard from './components/PlayerCard';
+
+// Mock data - in a real app, this would come from an API or database
+const topPlayers = [
+  { id: '1', name: 'Carlos Rodriguez', position: 'Forward', number: 9, age: 24, goals: 15, assists: 8, matches: 22, rating: 8.5 },
+  { id: '2', name: 'James Martinez', position: 'Midfielder', number: 10, age: 26, goals: 6, assists: 14, matches: 22, rating: 8.2 },
+  { id: '3', name: 'David Silva', position: 'Defender', number: 4, age: 28, goals: 2, assists: 3, matches: 20, rating: 7.8 },
+  { id: '4', name: 'Miguel Torres', position: 'Goalkeeper', number: 1, age: 30, goals: 0, assists: 0, matches: 22, rating: 8.0 },
+];
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <Navigation />
+      
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+            Dashboard
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">Overview of your team's performance</p>
+        </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        {/* Key Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <MetricCard 
+            title="Total Matches" 
+            value="22" 
+            change="+3 this month" 
+            icon="⚽"
+            trend="up"
+            gradient="from-blue-500 to-cyan-600"
+          />
+          <MetricCard 
+            title="Win Rate" 
+            value="68%" 
+            change="+5% vs last season" 
+            icon="🏆"
+            trend="up"
+            gradient="from-yellow-500 to-orange-600"
+          />
+          <MetricCard 
+            title="Goals Scored" 
+            value="48" 
+            change="+12 this month" 
+            icon="🎯"
+            trend="up"
+            gradient="from-red-500 to-pink-600"
+          />
+          <MetricCard 
+            title="Avg. Possession" 
+            value="58%" 
+            change="+3% improvement" 
+            icon="📊"
+            trend="up"
+            gradient="from-purple-500 to-indigo-600"
+          />
+        </div>
+
+        {/* Recent Performance Metrics */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-100 dark:border-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <span className="w-1 h-6 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full mr-3"></span>
+              Team Performance
+            </h2>
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Pass Accuracy</span>
+                  <span className="text-sm font-bold text-gray-900 dark:text-white">85%</span>
+                </div>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+                  <div className="bg-gradient-to-r from-green-500 to-emerald-600 h-3 rounded-full shadow-sm" style={{ width: '85%' }}></div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Shot Accuracy</span>
+                  <span className="text-sm font-bold text-gray-900 dark:text-white">42%</span>
+                </div>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+                  <div className="bg-gradient-to-r from-blue-500 to-cyan-600 h-3 rounded-full shadow-sm" style={{ width: '42%' }}></div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Tackle Success</span>
+                  <span className="text-sm font-bold text-gray-900 dark:text-white">72%</span>
+                </div>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+                  <div className="bg-gradient-to-r from-yellow-500 to-orange-600 h-3 rounded-full shadow-sm" style={{ width: '72%' }}></div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Aerial Duels Won</span>
+                  <span className="text-sm font-bold text-gray-900 dark:text-white">61%</span>
+                </div>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+                  <div className="bg-gradient-to-r from-purple-500 to-indigo-600 h-3 rounded-full shadow-sm" style={{ width: '61%' }}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-100 dark:border-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <span className="w-1 h-6 bg-gradient-to-b from-blue-500 to-cyan-600 rounded-full mr-3"></span>
+              Physical Metrics
+            </h2>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow">
+                <div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Average Distance Covered</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">11.2 km</p>
+                </div>
+                <span className="text-3xl">🏃</span>
+              </div>
+              <div className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow">
+                <div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Top Speed</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">34.5 km/h</p>
+                </div>
+                <span className="text-3xl">⚡</span>
+              </div>
+              <div className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow">
+                <div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Sprints</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">127</p>
+                </div>
+                <span className="text-3xl">💨</span>
+              </div>
+              <div className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow">
+                <div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Recovery Time</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">48h</p>
+                </div>
+                <span className="text-3xl">⏱️</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Top Performers */}
+        <div className="mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+            <span className="w-1 h-8 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full mr-3"></span>
+            Top Performers
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {topPlayers.map((player) => (
+              <PlayerCard key={player.id} player={player} />
+            ))}
+          </div>
+        </div>
+
+        {/* Recent Matches */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-100 dark:border-gray-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+            <span className="w-1 h-6 bg-gradient-to-b from-blue-500 to-cyan-600 rounded-full mr-3"></span>
+            Recent Matches
+          </h2>
+          <div className="space-y-3">
+            {[
+              { opponent: 'FC Barcelona', result: 'W', score: '3-1', date: '2024-01-15' },
+              { opponent: 'Real Madrid', result: 'D', score: '2-2', date: '2024-01-12' },
+              { opponent: 'Atletico Madrid', result: 'W', score: '2-0', date: '2024-01-08' },
+            ].map((match, idx) => (
+              <div key={idx} className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-gray-200 dark:border-gray-600 hover:shadow-md transition-all duration-200">
+                <div className="flex items-center space-x-4">
+                  <span className={`px-4 py-2 rounded-lg text-sm font-bold shadow-sm ${
+                    match.result === 'W' ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white' :
+                    match.result === 'L' ? 'bg-gradient-to-r from-red-500 to-pink-600 text-white' :
+                    'bg-gradient-to-r from-yellow-500 to-orange-600 text-white'
+                  }`}>
+                    {match.result}
+                  </span>
+                  <div>
+                    <p className="font-bold text-gray-900 dark:text-white">vs {match.opponent}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{match.date}</p>
+                  </div>
+                </div>
+                <p className="text-2xl font-bold bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-300 dark:to-white bg-clip-text text-transparent">{match.score}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
